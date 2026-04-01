@@ -280,3 +280,8 @@ kubectl delete pod -l app=mysql
 kubectl apply -f .
 ```
 
+## running deployment
+
+<img width="630" height="403" alt="image" src="https://github.com/user-attachments/assets/c714d360-9789-44ea-b8ec-049ce025aa81" />
+
+
