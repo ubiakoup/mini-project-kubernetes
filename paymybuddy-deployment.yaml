@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: paymybuddy
+  name: paymybuddy
+spec:
+  selector:
+    matchLabels:
+      app: paymybuddy
+  template:
+    metadata:
+      labels:
+        app: paymybuddy
+    spec:
+      containers:
+        - name: paymybuddy-backend
+          image: ipaymybuddy-backend
+          imagePullPolicy: Never
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/db_paymybuddy
+            - name: SPRING_DATASOURCE_USERNAME
+              value: paymybuddyuser
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pmb-secrets
+                  key: pmb-password
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: pmb-storage
+              mountPath: /data
+      volumes:
+        - name: pmb-storage
+          persistentVolumeClaim:
+            claimName: pmb-pvc
