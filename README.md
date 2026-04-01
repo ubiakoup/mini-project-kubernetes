@@ -96,7 +96,7 @@ If using `--driver=none`, build directly.
 
 ---
 
-## Secrets Configuration
+## Secrets Configuration example
 
 ```bash
 kubectl create secret generic mysql-secrets \
