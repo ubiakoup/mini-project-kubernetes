@@ -1,8 +1,6 @@
-# PayMyBuddy
+# PayMyBuddy – Kubernetes Deployment with Manifests
 
 ![homepage-paymybuddy](src/main/resources/readme/home.png)
-
-# PayMyBuddy – Kubernetes Deployment with Manifests
 
 ## Environment
 
