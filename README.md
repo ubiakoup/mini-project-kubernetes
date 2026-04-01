@@ -4,6 +4,20 @@
 
 # PayMyBuddy – Kubernetes Deployment with Manifests
 
+## Environment
+
+This project was deployed using Minikube running inside a Virtual Machine.
+
+- VM: Ubuntu (provisioned with Vagrant)
+- Kubernetes: Minikube
+- Network: Static IP configuration
+
+Minikube was accessible at:
+
+192.168.99.15
+
+<img width="630" height="403" alt="image" src="https://github.com/user-attachments/assets/c714d360-9789-44ea-b8ec-049ce025aa81" />
+
 ## Context
 
 This project demonstrates how to deploy a Spring Boot application (PayMyBuddy) with a MySQL database on Kubernetes using only YAML manifests (without Helm).
@@ -217,7 +231,7 @@ nodePort: 30007
 Access the application at:
 
 ```
-http://<NODE-IP>:30007
+http://<HOST_IP>:30007
 ```
 
 ---
@@ -280,8 +294,5 @@ kubectl delete pod -l app=mysql
 kubectl apply -f .
 ```
 
-## running deployment
-
-<img width="630" height="403" alt="image" src="https://github.com/user-attachments/assets/c714d360-9789-44ea-b8ec-049ce025aa81" />
 
 
