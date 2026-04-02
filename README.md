@@ -161,26 +161,26 @@ env:
 
 ---
 
-## Database Initialization
-
-SQL scripts are located in:
-
+## ConfigMap – Database Initialization
+Instead of using a hostPath, SQL scripts are stored in a ConfigMap.
+```bash
+kubectl create configmap mysql-initdb \
+  --from-file=src/main/resources/database/
 ```
-src/main/resources/database/
+Mounted in MySQL:
+```YAML
+volumeMounts:
+- mountPath: /docker-entrypoint-initdb.d
+  name: mysql-initdb
+
+volumes:
+- name: mysql-initdb
+  configMap:
+    name: mysql-initdb
 ```
-
-Mounted into the container:
-
-```
-/docker-entrypoint-initdb.d
-```
-
-This allows automatic execution of:
-
-* create.sql (schema)
-* data.sql (initial data)
-
----
+MySQL automatically executes:
+- create.sql
+- data.sql
 
 ## MySQL Service
 
@@ -254,6 +254,42 @@ Two persistent storage configurations are used:
 
 ---
 
+## Health Checks (Readiness & Liveness Probes)
+
+Kubernetes uses probes to monitor the state of containers and ensure application reliability.
+
+### Liveness Probe
+
+The liveness probe checks if the container is still running.
+
+If it fails, Kubernetes automatically restarts the container.
+
+```yaml
+livenessProbe:
+  tcpSocket:
+    port: 3306
+  initialDelaySeconds: 60
+  periodSeconds: 15
+```
+---
+---
+### Readiness Probe
+The readiness probe checks if the application is ready to receive traffic.
+If it fails, Kubernetes will not route traffic to the pod.
+```yaml
+readinessProbe:
+  tcpSocket:
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+```
+Why TCP Probes?
+In this project, TCP probes were chosen because:
+- They are simple and reliable
+- They do not depend on application-level endpoints
+- They avoid issues with authentication or Spring Boot Actuator
+- They are more stable during container startup
+---
 ## Deployment
 
 ```bash
