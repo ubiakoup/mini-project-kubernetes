@@ -15,7 +15,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:5.7
+      - image: mysql:8.0
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -40,11 +40,24 @@ spec:
           name: mysql-storage
         - mountPath: /docker-entrypoint-initdb.d
           name: mysql-initdb
+
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 30
+          periodSeconds: 15
+
       volumes:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: db-pvc 
 
       - name: mysql-initdb
-        hostPath:
-          path: /root/PayMyBuddy/src/main/resources/database
+        configMap:
+          name: mysql-initdb

@@ -29,9 +29,24 @@ spec:
                   key: pmb-password
           ports:
             - containerPort: 8080
+              name: http
           volumeMounts:
             - name: pmb-storage
               mountPath: /data
+
+          readinessProbe:
+            httpGet:
+              tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 15
+
       volumes:
         - name: pmb-storage
           persistentVolumeClaim:
