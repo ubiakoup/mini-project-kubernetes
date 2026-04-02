@@ -295,8 +295,20 @@ In this project, TCP probes were chosen because:
 ```bash
 kubectl apply -f .
 ```
-
 ---
+<img width="709" height="156" alt="image" src="https://github.com/user-attachments/assets/7f67470a-e1e6-46e8-9b3b-9966a98fbbe4" />
+
+<img width="401" height="93" alt="image" src="https://github.com/user-attachments/assets/503328f9-ba1e-49f8-b0ff-de78395ae352" />
+
+Access the application at:
+
+```
+http://<HOST_IP>:30007
+```
+<img width="630" height="338" alt="image" src="https://github.com/user-attachments/assets/650a4ff3-1b17-471b-99ac-9271595c840f" />
+
+<img width="635" height="357" alt="image" src="https://github.com/user-attachments/assets/fa58543d-34b9-4756-b38b-098cec137e1a" />
+
 
 ## Debugging
 
